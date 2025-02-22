@@ -1,0 +1,43 @@
+﻿@using PrimeCafeManagement.Models;
+@model List<Menu>;
+
+<div class="row">
+	<div class="card">
+		<div class="card-header bg-light py-3">
+			<h4> Add Menu [<a href="/Manager/AddUpdateMenu">Add Menu</a>]</h4>
+		</div>
+		<div class="card-body">
+			<table class="table table-bordered table-striped table-hover">
+				<thead class="bg-secondary text-white text-center">
+					<tr>
+						<th class="py-3">Id</th>
+						<th class="py-3">Menu Title</th>
+						<th class="py-3">Menu Price</th>
+						<th class="py-3">Image</th>
+						<th class="py-3">CreatedOn</th>
+						<th class="py-3">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (Menu menu in Model)
+					{
+						<tr>
+							<td>@menu.Id</td>
+							<td>@menu.MenuTitle.Name</td>
+							<td>@menu.MenuPrice.Name</td>
+
+							<td>
+								<img src="/image/@menu.Image" alt="Photo" height="70" width="70" />
+							</td>
+							<td>@menu.CreatedOn.ToString("dd-MMM-yyyy")</td>
+							<td>
+								<a href="/Manager/AddUpdateMenu/@menu.Id">Edit |</a>
+								<a href="/Manager/DeleteMenu/@menu.Id">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

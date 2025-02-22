@@ -1,0 +1,57 @@
+﻿@using PrimeCafeManagement.Models;
+@model List<Order>;
+<div class="row">
+	<form action="/Customer/OrderStatuses" method="post">
+		<div class="card">
+			<div class="card-header bg-light py-3">
+				<h4> Add Order [<a href="/Customer/AddUpdateOrder">Add Order</a>]</h4>
+			</div>
+			<div class="card-body">
+				<table class="table table-bordered table-striped table-hover">
+					<thead class="bg-secondary text-white text-center">
+						<tr>
+							<th class="py-3">Id</th>
+							<th class="py-3">User</th>
+							<th class="py-3">Title</th>
+							<th class="py-3">Price</th>
+							<th class="py-3">Order Date</th>
+							<th class="py-3">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@{
+							int totalPrice = 0;
+						}
+						@foreach (Order order in Model)
+						{
+							totalPrice = totalPrice + order.Price;
+							<tr>
+								<td>@order.Id</td>
+								<td>@order.User.Name</td>
+								<td>@order.Title</td>
+								<td>@order.Price</td>
+								<td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+								<td>
+									<a href="/Customer/DeleteOrder/@order.Id">Delete</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+					<tfoot>
+
+						<tr class="bg-light">
+							<td colspan="2" class="text-center"> <h5> Total Price = </h5> </td>
+							<td> <h5>@totalPrice</h5> </td>
+							<td>
+								<input type="hidden" name="TotalPrice" value="@totalPrice" />
+								<button class="btn btn-primary" type="submit">Proceed Order</button>
+								<a href="/Customer/ResetOrders" class="btn btn-secondary">Reset Order</a>
+							</td>
+						</tr>
+
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</form>
+</div>

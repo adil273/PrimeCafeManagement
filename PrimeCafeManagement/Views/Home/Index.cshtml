@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@* @using PrimeCafeManagement.Models; *@
+@* @model User; *@
+<div class="row">
+	<div class="col-md-12">
+		<div id="flag" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#flag" data-bs-slide-to="0" class="active"></button>
+				<button type="button" data-bs-target="#flag" data-bs-slide-to="1"></button>
+				<button type="button" data-bs-target="#flag" data-bs-slide-to="2"></button>
+				<button type="button" data-bs-target="#flag" data-bs-slide-to="3"></button>
+				<button type="button" data-bs-target="#flag" data-bs-slide-to="4"></button>
+				<button type="button" data-bs-target="#flag" data-bs-slide-to="5"></button>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#flag" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#flag" data-bs-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</button>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="/image/ChairTable.jpg" alt="Table & chair" class="d-block" style="width:100%; height:450px;" />
+					<div class="carousel-caption">
+						<h3>Clean Environment</h3>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/image/Biryani.jpg" alt="Biryani" class="d-block" style="width:100%; height:450px;" />
+					<div class="carousel-caption">
+						<h3>Biryani</h3>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/image/Cookies.jpg" alt="Cookies" class="d-block" style="width:100%; height:450px;" />
+					<div class="carousel-caption">
+						<h3>Cookies</h3>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/image/chicken.jpg" alt="Chicken" class="d-block" style="width:100%; height:450px;" />
+					<div class="carousel-caption">
+						<h3>Chicken Karahi</h3>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/image/coffee.jpg" alt="Coffee" class="d-block" style="width:100%; height:450px;" />
+					<div class="carousel-caption">
+						<h3>Coffee</h3>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/image/pastry.jpg" alt="Pastri" class="d-block" style="width:100%; height:450px;" />
+					<div class="carousel-caption">
+						<h3>Desserts</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@* CARD STARTS *@
+<div class="row my-3">
+	<div class="col-md-4">
+		<div class="card" style="width:100%; height:400px;">
+			<img src="~/image/adminCard.jpg" alt="AdminPhoto" style="width:100%; height:300px;" />
+			<div class="card-body text-center">
+				<h4 class="card-title">Admin</h4>
+				<a href="/Account/Login" class="btn btn-primary w-100">Log In</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="card" style="width:100%; height:400px;">
+			<img src="~/image/customerCard.jpg" alt="CustomerPhoto" style="width:100%; height:300px;" />
+			<div class="card-body text-center">
+				<h4 class="card-title">Customer</h4>
+				<a href="/Account/Login" class="btn btn-primary w-100">Log In</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="card" style="width:100%; height:400px;">
+			<img src="~/image/managerCard.jpg" alt="ManagerPhoto" style="width:100%; height:300px;" />
+			<div class="card-body text-center">
+				<h4 class="card-title">Manager</h4>
+				<a href="/Account/Login" class="btn btn-primary w-100">Log In</a>
+			</div>
+		</div>
+	</div>
+</div>

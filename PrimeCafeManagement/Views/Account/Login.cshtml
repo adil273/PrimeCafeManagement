@@ -1,0 +1,32 @@
+﻿@using PrimeCafeManagement.Models;
+@model User;
+<div class="row">
+	<div class="col-4 offset-4">
+		<div class="card">
+			<div class="header">
+				<h4 class="text-center bg-light py-3">Login Form</h4>
+			</div>
+			<div class="card-body">
+				@if (!string.IsNullOrEmpty(ViewBag.Error))
+				{ 
+					<p class="text-danger">@ViewBag.Error</p>
+				}
+				<form action="/Account/Login" method="post">
+					<div class="mb-3">
+						<label class="form-label">Email</label>
+						<input class="form-control" type="email" asp-for="Email" />
+					</div>
+					<div class="mb-3">
+						<label class="form-label">Password</label>
+						<input class="form-control" type="password" asp-for="Password" />
+					</div>
+					<div class="text-center d-flex justify-content-center gap-2">
+						<button class="btn btn-primary" type="submit">Login</button>
+						<a class="btn btn-success text-decoration-none" href="/Account/AddUpdateUser">Register</a>
+						
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,50 @@
+﻿@using PrimeCafeManagement.Models;
+@model User
+<div class="row">
+	<div class="col-4 offset-4">
+		<div class="card">
+			<div class="header">
+				<h4 class="text-center bg-light py-3">Register Form</h4>
+			</div>
+			<div class="card-body">
+				@if (!string.IsNullOrEmpty(ViewBag.Error))
+				{
+					<p class="text-danger">@ViewBag.Error</p>
+				}
+				<form action="/Account/AddUpdateUser" method="post" enctype="multipart/form-data">
+					<input type="hidden" asp-for="Id" />
+					<input type="hidden" asp-for="Image" />
+					<div class="mb-3">
+						<label class="form-label">Name</label>
+						<input class="form-control" type="text" asp-for="Name" />
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">Image</label>
+						<input class="form-control" type="file" asp-for="Image" name="file" />
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">Email</label>
+						<input class="form-control" type="Email" asp-for="Email" />
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">Password</label>
+						<input class="form-control" type="password" asp-for="Password" />
+					</div>
+
+					@* <div class="mb-3"> *@
+					@* 	<label class="form-label">Phone</label> *@
+					@* 	<input class="form-control" type="tel" asp-for="Phone" /> *@
+					@* </div> *@
+
+
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

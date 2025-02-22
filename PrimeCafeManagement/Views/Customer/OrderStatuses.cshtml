@@ -1,0 +1,56 @@
+﻿@using PrimeCafeManagement.Models;
+@model OrderStatus;
+
+<h2>Your Order Summary</h2>
+<div class="card" style="width:30%;">
+	<div class="card-body py-3">
+		<table>
+			<thead>
+				<tr>
+					<th>Order</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody">
+				<tr>
+					<td>Customer Name:</td>
+					<td>@ViewBag.user</td>
+				</tr>
+				<tr>
+					<td>Order Date:</td>
+					<td>@ViewBag.OrderDate</td>
+				</tr>
+				<tr>
+					<td>Order Number:</td>
+					<td>@ViewBag.OrderNumber</td>
+				</tr>
+				<tr>
+					<td>Total Price:</td>
+					<td>@ViewBag.TotalPrice</td>
+				</tr>
+			</tbody>
+		</table>
+		@* WILL BE DONE IN FUTURE AFTER J.S UNDERSTANDING *@
+		<a href="/Customer/Print" class="btn btn-primary w-20 my-2">Print</a>
+		
+	</div>
+</div>
+<div class="card" style="width:30%; ">
+	<div>
+		<div class="d-flex justify-content-center gap-3 mt-2">
+			<p><b>Payment:</b></p>
+			<a href="/Payment/Addpayment" class="btn btn-success w-25">Online</a>
+			<a href="/Payment/Paylater" class="btn btn-secondary w-25">Counter</a>
+		</div>
+		<div class="d-flex justify-content-center gap-3 my-2">
+			<p><b>Orders:</b></p>
+			<a href="/Customer/AddUpdateOrder" class="btn btn-warning w-25">Edit</a>
+			<a href="/Account/CancelOrder" class="btn btn-danger w-25">Cancel</a>
+			<a href="/Account/FinishOrder" class="btn btn-primary w-25">Finish</a>
+		</div>
+	</div>
+</div>
+
+
+
+

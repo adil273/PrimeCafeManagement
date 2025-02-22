@@ -1,0 +1,45 @@
+﻿@using PrimeCafeManagement.Models;
+@model List<User>;
+<div class="row">
+	<div class="card">
+		<div class="card-header bg-light py-3">
+			<h4> Add User [<a href="/Admin/AddUpdateUser">Add User</a>]</h4>
+		</div>
+		<div class="card-body">
+			<table class="table table-bordered table-striped table-hover">
+				<thead class="bg-secondary text-white text-center">
+					<tr>
+						<th class="py-3">Id</th>
+						<th class ="py-3">Role</th>
+						<th class="py-3">Name</th>
+						<th class="py-3">Image</th>
+						<th class="py-3">Email</th>
+						<th class="py-3">Password</th>
+						<th class="py-3">Created On</th>
+						<th class="py-3">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (User user in Model)
+					{
+						<tr>
+							<td>@user.Id</td>
+							<td>@user.Role.Name</td>
+							<td>@user.Name</td>
+							<td>
+								<img src="/image/@user.Image" alt="Photo" height="50" width="50" />
+							</td>
+							<td>@user.Email</td>
+							<td>@user.Password</td>
+							<td>@user.CreatedOn.ToString("dd MMM yyyy")</td>
+							<td>
+								<a href="/Admin/AddUpdateUser/@user.Id">Edit |</a>
+								<a href="/Admin/DeleteUser/@user.Id">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

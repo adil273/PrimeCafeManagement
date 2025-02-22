@@ -1,0 +1,45 @@
+﻿@using PrimeCafeManagement.Models;
+@model List<User>;
+<div class="row">
+	<div class="card">
+		<div class="card-header">
+			<h4> Add User [<a href="/Account/AddUpdateUser">Add User</a>]</h4>
+		</div>
+		<div class="card-body">
+			<table class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Role</th>
+						<th>Name</th>
+						<th>Image</th>
+						<th>Email</th>
+						<th>Password</th>
+						<th>Created On</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (User user in Model)
+					{
+						<tr>
+							<td>@user.Id</td>
+							<td>@user.Role.Name</td>
+							<td>@user.Name</td>
+							<td>
+								<img src="/image/@user.Image" alt="Photo" height="50" width="50" />
+							</td>
+							<td>@user.Email</td>
+							<td>@user.Password</td>
+							<td>@user.CreatedOn</td>
+							<td>
+								<a href="/Account/AddUpdateUser/@user.Id">Edit |</a>
+								<a href="/Account/DeleteUser/@user.Id">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
