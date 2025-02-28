@@ -3,14 +3,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PrimeCafeManagement.Models;
 using System.IO;
+using System.Linq;
 using Microsoft.EntityFrameworkCore.Design.Internal;
+using Azure.Core;
 
-
+//ACCOUNT CONTROLLER CONSIST LANDING, LOGIN-LOGOUT, USER REGISTRATION WITH CRUD, PRIVACY, TERMS AND CONDITION HELP
 namespace PrimeCafeManagement.Controllers
 {
     public class AccountController : Controller
     {
         private readonly PrimeCafeContext _context;
+
         public AccountController(PrimeCafeContext context)
         {
             _context = context;
@@ -20,68 +23,59 @@ namespace PrimeCafeManagement.Controllers
             return View();
         }
 
-        //LOGIN STARTS
+        //LOGIN-LOGOUT STARTS /////////////////////////////////
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Login(User user)
+        public IActionResult Login(User user, Role role)
         {
-
-            User dbUser = _context.Users.Where(x => x.Email.ToLower() == user.Email.ToLower() && x.Password == user.Password).FirstOrDefault();
+            User dbUser = _context.Users.Where(x => x.Email.ToLower() == user.Email.ToLower() && x.Password == user.Password).Include(u => u.Role).FirstOrDefault();
             if (dbUser == null)
             {
                 ViewBag.Error = "Email or Password is invalid";
                 return View(user);
             }
-            
             CookieOptions cookieOptions = new CookieOptions();
             cookieOptions.Expires = DateTime.Now.AddDays(3);
             Response.Cookies.Append("user-access-token", dbUser.AccessToken, cookieOptions);
-            return Redirect("/Account/Landing");
 
+
+            if (dbUser.Role != null)
+            {
+                if (dbUser.Role.Name == "Admin")
+                {
+                    return Redirect("/Admin/Users");
+                }
+
+                else if (dbUser.Role.Name == "Manager")
+                {
+                    return Redirect("/Manager/Dashboards");
+                }
+
+                else if (dbUser.Role.Name == "Customer")
+                {
+                    return Redirect("/Customer/Orders");
+                }
+
+            }
+           
+            return Redirect("/Account/Register");
         }
 
         public IActionResult Logout()
         {
+            var accessToken = Request.Cookies["user-access-token"];
+            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
             Response.Cookies.Delete("user-access-token");
-            Response.Cookies.Delete("OrderNumber");
+            _context.SaveChanges();
             return Redirect("/Account/Login");
         }
-        public IActionResult CancelOrder()
-        {
-            Response.Cookies.Delete("OrderNumber");
-            var accessToken = Request.Cookies["user-access-token"];
-            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
-            var order = _context.Orders.Where(x => x.UserId == user.Id);
-            _context.Orders.RemoveRange(order);
-            _context.SaveChanges();
-            return View();
-        }
-        [HttpGet]
-        public IActionResult FinishOrder()
-        {
-            var accessToken = Request.Cookies["user-access-token"];
-            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
-            ViewBag.user = user.Name;
+        //LOGIN-LOGOUT ENDS ///////////////
 
-            var orderNumber = Request.Cookies["order-number"];
-            ViewBag.OrderNumber = orderNumber;
-
-            var order = _context.Orders.Where(x => x.UserId == user.Id);
-            _context.Orders.RemoveRange(order);
-            _context.SaveChanges();
-            return View();
-        }
-
-
-
-        //LOGIN ENDS
-        //REGISTER STARTS
-
-
+        //REGISTER CRUD STARTS//////////////////
         public IActionResult Users()
         {
             List<User> user = _context.Users.Include(x => x.Role).ToList();
@@ -120,7 +114,7 @@ namespace PrimeCafeManagement.Controllers
                 else if (file.Length > maxSize)
                 {
                     ViewBag.Roles = _context.Roles.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = $"{x.Name}" }).ToList();
-                    ViewBag.Error = "Allowed Size is 1MB";
+                    ViewBag.Error = "Allowed Size is 4MB";
                     return View(user);
                 }
                 else
@@ -133,15 +127,12 @@ namespace PrimeCafeManagement.Controllers
                     }
                 }
             }
-            //define Access Token and created On
             user.AccessToken = DateTime.UtcNow.Ticks.ToString();
             user.CreatedOn = DateTime.UtcNow.AddHours(5);
 
             user.RoleId = _context.Roles.Where(x => x.Name == "Customer").Select(x => x.Id).FirstOrDefault();
-            _context.Users.Add(user);
+            _context.Users.Update(user);
             _context.SaveChanges();
-            // _context.Users.Update(user);
-            //_context.SaveChanges();
             return Redirect("/Account/Login");
 
         }
@@ -156,7 +147,9 @@ namespace PrimeCafeManagement.Controllers
 
         }
 
-        //REGISTER ENDS
+        //REGISTER CRUD ENDS //////////////////
+
+        //OTHER PAGES STARTS HERE //////////////////
         public IActionResult Privacy()
         {
             return View();
@@ -173,5 +166,6 @@ namespace PrimeCafeManagement.Controllers
         {
             return View();
         }
+        //OTHER PAGES ENDS HERE //////////////////
     }
 }

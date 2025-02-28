@@ -3,17 +3,17 @@
 <div class="row">
 	<div class="card">
 		<div class="card-header bg-light py-3">
-			<h4> Add Order [<a href="/Customer/AddUpdateOrder">Add Order</a>]</h4>
+			<h4 class="text-center"> Order Dashboard</h4>
 		</div>
 		<div class="card-body">
-			<table class="table table-bordered table-striped table-hover">
+			<table class="table table-bordered table-striped table-hover text-center">
 				<thead class="bg-secondary text-white text-center">
 					<tr>
 						<th class="py-3">Order Date</th>
-						<th class="py-3">Title</th>
-						<th class="py-3">Price</th>
+						<th class="py-3">Customer</th>
+						<th class="py-3">Order Title</th>
+						<th class="py-3">OrderPrice</th>
 						<th class="py-3">Order Number</th>
-						<th class="py-3">Order Status</th>
 						<th class="py-3">Actions</th>
 					</tr>
 				</thead>
@@ -22,12 +22,14 @@
 					{
 						<tr>
 							<td>@order.OrderDate.ToString("dd-MMM-yy")</td>
+							<td>@order.User.Name</td>
 							<td>@order.Title</td>
 							<td>@order.Price</td>
 							<td>@order.OrderNumber</td>
-							<td>@order.Status</td>
 							<td>
-								<a href="/Customer/DeleteOrder/@order.Id">Delete</a>
+								<a href="/Manager/CompleteOrder/@order.Id"> Complete | </a>
+								<a href="/Manager/CancelOrder/@order.Id"> Cancel </a>
+
 							</td>
 						</tr>
 					}

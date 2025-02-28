@@ -18,15 +18,8 @@ namespace PrimeCafeManagement.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Order> Orders { get; set; }
-
         public DbSet<MenuStatus> MenuStatuses { get; set; }
-        public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<MenuTitle> MenuTitles { get; set; }
         public DbSet<MenuPrice> MenuPrices { get; set; }
-
-
-
     }
-
-    
 }

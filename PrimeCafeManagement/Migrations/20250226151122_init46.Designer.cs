@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrimeCafeManagement.Models;
 
@@ -11,9 +12,11 @@ using PrimeCafeManagement.Models;
 namespace PrimeCafeManagement.Migrations
 {
     [DbContext(typeof(PrimeCafeContext))]
-    partial class PrimeCafeContextModelSnapshot : ModelSnapshot
+    [Migration("20250226151122_init46")]
+    partial class init46
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,16 +121,8 @@ namespace PrimeCafeManagement.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OrderNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -141,6 +136,35 @@ namespace PrimeCafeManagement.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("PrimeCafeManagement.Models.OrderSummary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OrderSummaries");
                 });
 
             modelBuilder.Entity("PrimeCafeManagement.Models.Role", b =>
@@ -221,6 +245,17 @@ namespace PrimeCafeManagement.Migrations
                 });
 
             modelBuilder.Entity("PrimeCafeManagement.Models.Order", b =>
+                {
+                    b.HasOne("PrimeCafeManagement.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PrimeCafeManagement.Models.OrderSummary", b =>
                 {
                     b.HasOne("PrimeCafeManagement.Models.User", "User")
                         .WithMany()

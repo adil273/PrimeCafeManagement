@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design.Internal;
 using PrimeCafeManagement.Models;
 
+//ADMIN CONTROLELR CONSIST OF USER CRUD, AND ROLE CRUD
 namespace PrimeCafeManagement.Controllers
 {
-
     [AuthorizeAdmin]
     public class AdminController : Controller
     {
@@ -42,7 +42,7 @@ namespace PrimeCafeManagement.Controllers
         public IActionResult AddUpdateUser(User user, IFormFile file)
         {
             List<string> allowedExtension = new List<string> { "jpg", "png" };
-            int maxSize = 1024 * 1024 * 2;
+            int maxSize = 1024 * 1024 * 4;
             if (file != null && file.Length > 0)
             {
                 var fileExtension = file.FileName.Split('.').LastOrDefault();
@@ -55,7 +55,7 @@ namespace PrimeCafeManagement.Controllers
                 else if (file.Length > maxSize)
                 {
                     ViewBag.Roles = _context.Roles.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = $"{x.Name}" }).ToList();
-                    ViewBag.Error = "Allowed Image Size is 2MB";
+                    ViewBag.Error = "Allowed Image Size is 4MB";
                     return View(user);
                 }
                 else
@@ -68,15 +68,13 @@ namespace PrimeCafeManagement.Controllers
                     }
                 }
             }
-            //define Access Token and created On
+            
             user.AccessToken = DateTime.UtcNow.Ticks.ToString();
             user.CreatedOn = DateTime.UtcNow.AddHours(5);
             _context.Users.Update(user);
             _context.SaveChanges();
             return Redirect("/Admin/Users");
-        
         }
-        
         [HttpGet]
         public IActionResult DeleteUser(int id)
         {
@@ -86,9 +84,9 @@ namespace PrimeCafeManagement.Controllers
             return Redirect("/Admin/Users");
 
         }
-        //CRUD FOR USER ENDS HERE
+        //CRUD FOR USER ENDS HERE //////////////
 
-        //CRUD FOR ROLES STARTS HERE
+        //CRUD FOR ROLES STARTS HERE ///////////
         public IActionResult Roles()
         {
             List<Role> role = _context.Roles.ToList();
@@ -126,7 +124,7 @@ namespace PrimeCafeManagement.Controllers
             return Redirect("/Admin/Roles");
 
         }
-        //CRUD FOR ROLES ENDS HERE
+        //CRUD FOR ROLES ENDS HERE////////////////
 
     }
 }

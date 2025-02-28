@@ -5,22 +5,16 @@
 
 	@* MEAL CARD 1 STARTS *@
 
-	<div class="col-md-3">
+	<div class="col-md-3 my-2">
 		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
 			<input type="hidden" asp-for="Id" />
-			<div class="mb-3">
-				<label class="form-label">User Name</label>
-				<select class="form-select form-label" asp-for="UserId" asp-items="ViewBag.Users">
-					<option>--Select User--</option>
-				</select>
-			</div>
 			<div class="card" style="width:100%; height:300px;">
 				<input type="hidden" name="Title" value="Today Meal" />
-				<input type="hidden" name="Price" Value="250" />
+				<input type="hidden" name="Price" Value="550" />
 				<img src="~/image/meal.jpg" alt="Meal Photo" style="width:100%; height:180px;" />
 				<div class="card-body text-center">
-					<h5 class="card-title">Today Meal</h5>
-					<h6 class="card-title">Price Rs. 250</h6>
+					<h5 class="card-title">Today's Special</h5>
+					<h6 class="card-title">Price Rs. 550</h6>
 					<div class="text-center">
 						<button class="btn btn-primary" type="submit">Add Order</button>
 					</div>
@@ -31,24 +25,125 @@
 
 	@* MEAL CARD 2 STARTS *@
 
-	<div class="col-md-3">
+	<div class="col-md-3 my-2">
 		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
 			<input type="hidden" asp-for="Id" />
-			<div class="mb-3">
-				<label class="form-label">User Name</label>
-				<select class="form-select form-label" asp-for="UserId" asp-items="ViewBag.Users">
-					<option>--Select User--</option>
-				</select>
-			</div>
-
 			<div class="card" style="width:100%; height:300px;">
 				<input type="hidden" name="Title" value="Rice" />
-				<input type="hidden" name="Price" Value="150" />
-
-				<img src="~/image/rice.jpg" alt="Meal Photo" style="width:100%; height:180px;" />
+				<input type="hidden" name="Price" Value="250" />
+				<img src="~/image/rice.jpg" alt="Rice Photo" style="width:100%; height:180px;" />
 				<div class="card-body text-center">
 					<h5 class="card-title">Rice</h5>
-					<h6 class="card-title">Price Rs. 150</h6>
+					<h6 class="card-title">Price Rs. 250</h6>
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">Add Order</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	@* MEAL CARD 3 STARTS *@
+	<div class="col-md-3 my-2">
+		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
+			<input type="hidden" asp-for="Id" />
+			<div class="card" style="width:100%; height:300px;">
+				<input type="hidden" name="Title" value="Chicken" />
+				<input type="hidden" name="Price" Value="300" />
+				<img src="~/image/chicken.jpg" alt="Chicken Karahi Photo" style="width:100%; height:180px;" />
+				<div class="card-body text-center">
+					<h5 class="card-title">Chicken</h5>
+					<h6 class="card-title">Price Rs. 300</h6>
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">Add Order</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	@* MEAL CARD 4 STARTS *@
+	<div class="col-md-3 my-2">
+		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
+			<input type="hidden" asp-for="Id" />
+			<div class="card" style="width:100%; height:300px;">
+				<input type="hidden" name="Title" value="Cup Cake" />
+				<input type="hidden" name="Price" Value="180" />
+				<img src="~/image/cupcake.jpg" alt="Cup Cake Photo" style="width:100%; height:180px;" />
+				<div class="card-body text-center">
+					<h5 class="card-title">Cup Cake</h5>
+					<h6 class="card-title">Price Rs. 180</h6>
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">Add Order</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	@* MEAL CARD 5 STARTS *@
+	<div class="col-md-3 my-2">
+		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
+			<input type="hidden" asp-for="Id" />
+			<div class="card" style="width:100%; height:300px;">
+				<input type="hidden" name="Title" value="Coffee" />
+				<input type="hidden" name="Price" Value="120" />
+				<img src="~/image/coffee.jpg" alt="Coffee Photo" style="width:100%; height:180px;" />
+				<div class="card-body text-center">
+					<h5 class="card-title">Coffee</h5>
+					<h6 class="card-title">Price Rs. 120</h6>
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">Add Order</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	@* MEAL CARD 6 STARTS *@
+	<div class="col-md-3 my-2">
+		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
+			<input type="hidden" asp-for="Id" />
+			<div class="card" style="width:100%; height:300px;">
+				<input type="hidden" name="Title" value="Tea" />
+				<input type="hidden" name="Price" Value="100" />
+				<img src="~/image/tea.jpg" alt="Tea Photo" style="width:100%; height:180px;" />
+				<div class="card-body text-center">
+					<h5 class="card-title">Tea</h5>
+					<h6 class="card-title">Price Rs. 100</h6>
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">Add Order</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	@* MEAL CARD 7 STARTS *@
+	<div class="col-md-3 my-2">
+		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
+			<input type="hidden" asp-for="Id" />
+			<div class="card" style="width:100%; height:300px;">
+				<input type="hidden" name="Title" value="Chips" />
+				<input type="hidden" name="Price" Value="60" />
+				<img src="~/image/chips.jpg" alt="Chips Packet Photo" style="width:100%; height:180px;" />
+				<div class="card-body text-center">
+					<h5 class="card-title">Chips</h5>
+					<h6 class="card-title">Price Rs. 60</h6>
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">Add Order</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	@* MEAL CARD 8 STARTS *@
+	<div class="col-md-3 my-2">
+		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
+			<input type="hidden" asp-for="Id" />
+			<div class="card" style="width:100%; height:300px;">
+				<input type="hidden" name="Title" value="Water" />
+				<input type="hidden" name="Price" Value="80" />
+				<img src="~/image/water.jpg" alt="Water Bottle Photo" style="width:100%; height:180px;" />
+				<div class="card-body text-center">
+					<h5 class="card-title">Water</h5>
+					<h6 class="card-title">Price Rs. 80</h6>
 					<div class="text-center">
 						<button class="btn btn-primary" type="submit">Add Order</button>
 					</div>

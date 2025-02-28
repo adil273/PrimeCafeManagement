@@ -4,10 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PrimeCafeManagement.Models;
+using System.Linq;
+using System.Threading;
+using Microsoft.Extensions.Options;
+using Azure.Core;
 
+// CUSTOMER CONTROLLER CONSIST OF ORDERS CRUD.
 namespace PrimeCafeManagement.Controllers
 {
-    [AuthorizeCustomer]
+    [AuthorizeCustomer]    
     public class CustomerController : Controller
     {
         private readonly PrimeCafeContext _context;
@@ -16,27 +21,22 @@ namespace PrimeCafeManagement.Controllers
             _context = context;
         }
 
+        //ORDER CRUD STARTS HERE//////////
+        
         public IActionResult Orders()
         {
-
-
             var accessToken = Request.Cookies["user-access-token"];
             User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
-            DateTime today = DateTime.UtcNow.Date;
-            List<Order> order = _context.Orders.Where(x => x.UserId == user.Id && x.OrderDate.Date == today).Include(x => x.User).ToList();
+            List<Order> order = _context.Orders.Where(x => x.UserId == user.Id).ToList();
             return View(order);
         }
-        [HttpGet]
-        public IActionResult AddUpdateOrder(int id = 0)
-        {
 
+        [HttpGet]public IActionResult AddUpdateOrder(int id = 0)
+        {
             var accessToken = Request.Cookies["user-access-token"];
             User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
-
             ViewBag.Users = _context.Users.Where(x => x.AccessToken == accessToken).Select(
                 x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList();
-
-
 
             if (id == 0)
             {
@@ -47,20 +47,26 @@ namespace PrimeCafeManagement.Controllers
                 Order order = _context.Orders.Where(x => x.Id == id).FirstOrDefault();
                 return View(order);
             }
-
         }
 
+       
         [HttpPost]
         public IActionResult AddUpdateOrder(Order order)
         {
+            var accessToken = Request.Cookies["user-access-token"];
+            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
 
+            order.UserId = user.Id;
             order.OrderDate = DateTime.UtcNow.AddHours(5);
+            order.OrderNumber = DateTime.UtcNow.AddHours(5).ToString("hhmmss");
+            order.Status = "Pending";
+
             _context.Orders.Update(order);
             _context.SaveChanges();
+
             return Redirect("/Customer/Orders");
         }
-
-
+       
         [HttpGet]
         public IActionResult DeleteOrder(int id)
         {
@@ -69,36 +75,6 @@ namespace PrimeCafeManagement.Controllers
             _context.SaveChanges();
             return Redirect("/Customer/Orders");
         }
-        //RESET ORDER
-        [HttpGet]
-        public IActionResult ResetOrders(int id)
-        {
-            var accessToken = Request.Cookies["user-access-token"];
-            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
-            var order = _context.Orders.Where(x => x.UserId == user.Id);
-            _context.Orders.RemoveRange(order);
-            _context.SaveChanges();
-            return Redirect("/Customer/Orders");
-        }
-
-        //ORDER STTUS STARTS
-        [HttpPost]
-        public IActionResult OrderStatuses(Order order, int TotalPrice)
-        {
-            var accessToken = Request.Cookies["user-access-token"];
-            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
-
-            ViewBag.user = user.Name;
-            ViewBag.OrderDate = DateTime.UtcNow.AddHours(5).ToString("dd-MMM-yy");
-
-            var orderNumber = "PCM-" + user.Name + "-" + DateTime.UtcNow.AddHours(5).ToString("hhmm");
-
-            CookieOptions cookieOptions = new CookieOptions();
-            cookieOptions.Expires = DateTime.Now.AddHours(1);
-            Response.Cookies.Append("order-number", orderNumber, cookieOptions);
-            ViewBag.OrderNumber = orderNumber;
-            ViewBag.TotalPrice = TotalPrice;
-            return View();
-        }
+        //ORDER CRUD ENDS HERE//////////
     }
 }

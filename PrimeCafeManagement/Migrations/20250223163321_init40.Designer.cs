@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrimeCafeManagement.Models;
 
@@ -11,9 +12,11 @@ using PrimeCafeManagement.Models;
 namespace PrimeCafeManagement.Migrations
 {
     [DbContext(typeof(PrimeCafeContext))]
-    partial class PrimeCafeContextModelSnapshot : ModelSnapshot
+    [Migration("20250223163321_init40")]
+    partial class init40
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,16 +121,8 @@ namespace PrimeCafeManagement.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OrderNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -141,6 +136,45 @@ namespace PrimeCafeManagement.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("PrimeCafeManagement.Models.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Price")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OrderStatuses");
                 });
 
             modelBuilder.Entity("PrimeCafeManagement.Models.Role", b =>
@@ -231,6 +265,25 @@ namespace PrimeCafeManagement.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("PrimeCafeManagement.Models.OrderStatus", b =>
+                {
+                    b.HasOne("PrimeCafeManagement.Models.Order", "Order")
+                        .WithOne("OrderStatus")
+                        .HasForeignKey("PrimeCafeManagement.Models.OrderStatus", "OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrimeCafeManagement.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PrimeCafeManagement.Models.User", b =>
                 {
                     b.HasOne("PrimeCafeManagement.Models.Role", "Role")
@@ -240,6 +293,12 @@ namespace PrimeCafeManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("PrimeCafeManagement.Models.Order", b =>
+                {
+                    b.Navigation("OrderStatus")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
