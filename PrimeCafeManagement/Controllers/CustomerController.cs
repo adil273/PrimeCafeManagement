@@ -64,7 +64,7 @@ namespace PrimeCafeManagement.Controllers
             _context.Orders.Update(order);
             _context.SaveChanges();
 
-            return Redirect("/Customer/Orders");
+            return Redirect("/Customer/CurrentOrders");
         }
        
         [HttpGet]
@@ -73,7 +73,14 @@ namespace PrimeCafeManagement.Controllers
             Order order = _context.Orders.Where(x => x.Id == id).FirstOrDefault();
             _context.Orders.Remove(order);
             _context.SaveChanges();
-            return Redirect("/Customer/Orders");
+            return Redirect("/Customer/CurrentOrders");
+        }
+
+        public IActionResult CurrentOrders()
+        {
+            List<Order> order = _context.Orders.Where(x => x.Status == "Pending").Include(x => x.User).ToList();
+
+            return View(order);
         }
         //ORDER CRUD ENDS HERE//////////
     }

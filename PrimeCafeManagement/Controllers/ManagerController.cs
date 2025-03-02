@@ -29,7 +29,7 @@ namespace PrimeCafeManagement.Controllers
         public IActionResult CompleteOrder(int id)
         {
             Order order = _context.Orders.Where(x => x.Id == id).FirstOrDefault();
-            order.Status = "Complete"; 
+            order.Status = "Confirm"; 
             _context.SaveChanges();
             return Redirect("/Manager/Dashboards");
         }

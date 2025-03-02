@@ -1,40 +1,40 @@
 ﻿@using PrimeCafeManagement.Models;
 @model List<Order>;
 <div class="row">
-	<div class="card">
-		<div class="card-header bg-light py-3">
-			<h4> Add Order [<a href="/Customer/AddUpdateOrder">Add Order</a>]</h4>
-		</div>
-		<div class="card-body">
-			<table class="table table-bordered table-striped table-hover">
-				<thead class="bg-secondary text-white text-center">
-					<tr>
-						<th class="py-3">Order Date</th>
-						<th class="py-3">Title</th>
-						<th class="py-3">Price</th>
-						<th class="py-3">Order Number</th>
-						<th class="py-3">Order Status</th>
-						<th class="py-3">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (Order order in Model)
-					{
-						<tr>
-							<td>@order.OrderDate.ToString("dd-MMM-yy")</td>
-							<td>@order.Title</td>
-							<td>@order.Price</td>
-							<td>@order.OrderNumber</td>
-							<td>@order.Status</td>
-							<td>
-								<a class="confirm-modal-link" data-action="delete" href="/Customer/DeleteOrder/@order.Id">Delete</a>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <div class="card">
+        <div class="card-header bg-light py-3">
+            <h4> Add Order [<a href="/Customer/AddUpdateOrder">Add Order</a>]</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-secondary text-white text-center">
+                    <tr>
+                        <th class="py-3">Order Date</th>
+                        <th class="py-3">Title</th>
+                        <th class="py-3">Price</th>
+                        <th class="py-3">Order Number</th>
+                        <th class="py-3">Order Status</th>
+                        <th class="py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Order order in Model)
+                    {
+                        <tr>
+                            <td>@order.OrderDate.ToString("dd-MMM-yy")</td>
+                            <td>@order.Title</td>
+                            <td>@order.Price</td>
+                            <td>@order.OrderNumber</td>
+                            <td>@order.Status</td>
+                            <td>
+                                <a class="confirm-modal-link" data-action="delete" href="/Customer/DeleteOrder/@order.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <!-- Bootstrap Modal -->
 <div class="modal" id="confirm-modal">

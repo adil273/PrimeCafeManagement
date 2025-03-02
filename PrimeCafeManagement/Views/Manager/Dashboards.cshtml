@@ -27,8 +27,9 @@
 							<td>@order.Price</td>
 							<td>@order.OrderNumber</td>
 							<td>
-								<a href="/Manager/CompleteOrder/@order.Id"> Complete | </a>
-								<a href="/Manager/CancelOrder/@order.Id"> Cancel </a>
+								<a class="product-view" href="/Manager/CompleteOrder/@order.Id"> View | </a>
+								<a class="confirm-modal-link" data-action="confirm" href="/Manager/CompleteOrder/@order.Id"> Confirm | </a>
+								<a class="confirm-modal-link" data-action="cancel" href="/Manager/CancelOrder/@order.Id"> Cancel </a>
 
 							</td>
 						</tr>
@@ -38,3 +39,69 @@
 		</div>
 	</div>
 </div>
+
+<!-- Bootstrap Modal -->
+<div class="modal" id="confirm-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmation</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body" id="confirm-modal-body">
+                Are you sure?
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="confirm-yes">Yes</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >No</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var OrderUrl = "";
+
+            $(".confirm-modal-link").click(function(e) {
+                e.preventDefault(); 
+
+                let action = $(this).data("action");
+
+                OrderUrl = $(this).attr("href");
+
+                      let message = "Do you want to ";
+                        if (action === "confirm") 
+                        {
+                        message += "Confirm";
+                        } 
+                        
+                        else 
+                        {
+                        message += "Cancel";
+                        }
+                        
+                        message += " this order?";
+
+                    $("#confirm-modal-body").text(message);
+               
+                $("#confirm-modal").modal("show");
+            });
+
+            $("#confirm-yes").click(function () {
+                window.location.href = OrderUrl;
+            });
+           
+        });
+    </script>
+}
+
+}
