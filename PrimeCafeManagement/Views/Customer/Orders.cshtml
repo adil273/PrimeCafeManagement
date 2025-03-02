@@ -36,60 +36,48 @@
 		</div>
 	</div>
 </div>
-<!-- Bootstrap Modal -->
+
 <div class="modal" id="confirm-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+	<div class="modal-dialog">
+		<div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Confirmation</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
+			<div class="modal-header">
+				<h4 class="modal-title">Confirmation</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
 
-            <!-- Modal Body -->
-            <div class="modal-body" id="confirm-modal-body">
-                Are you sure?
-            </div>
+			<div class="modal-body" id="confirm-modal-body">
+				<p>Do you want to Delete This Order.?</p>
+			</div>
 
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="confirm-yes">Yes</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-            </div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" id="confirm-yes">Yes</button>
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 @section Scripts {
-    <script>
-        $(document).ready(function () {
-            var UrlPage = "";
+	<script>
+		$(document).ready(function () {
+			var UrlPage = "";
 
-            $(".confirm-modal-link").click(function(e) {
-                e.preventDefault();
+			$(".confirm-modal-link").click(function(e) {
+				e.preventDefault();
 
-                let action = $(this).data("action");
-                UrlPage = $(this).attr("href");
+				let action = $(this).data("action");
+				UrlPage = $(this).attr("href");
+				$("#confirm-modal-body").text(message);
+				$("#confirm-modal").modal("show");
+			});
 
-                      let message = "Do you want to ";
-                        if (action === "delete")
-                        {
-                        message += "Delete";
-                        }
+			$("#confirm-yes").click(function () {
+				window.location.href = UrlPage;
+			});
 
-                        message += " this order?";
-
-                    $("#confirm-modal-body").text(message);
-
-                $("#confirm-modal").modal("show");
-            });
-
-            $("#confirm-yes").click(function () {
-                window.location.href = UrlPage;
-            });
-
-        });
-    </script>
+		});
+	</script>
 }
+
