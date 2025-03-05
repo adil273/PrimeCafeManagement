@@ -1,0 +1,33 @@
+﻿@using PrimeCafeManagement.Models;
+@model List<MenuTitle>;
+<div class="row">
+	<div class="card">
+		<div class="card-header bg-light py-3">
+			<h4> Add MenuTitle [<a href="/Manager/AddUpdateMenuTitle">Add MenuTitle</a>]</h4>
+		</div>
+		<div class="card-body">
+			<table class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (MenuTitle menuTitle in Model)
+					{
+						<tr>
+							<td>@menuTitle.Id</td>
+							<td>@menuTitle.Name</td>
+							<td>
+								<a href="/Manager/AddUpdateMenuTitle/@menuTitle.Id">Edit |</a>
+								<a href="/Manager/DeleteMenuTitle/@menuTitle.Id">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

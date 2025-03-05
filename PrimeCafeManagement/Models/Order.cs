@@ -1,4 +1,5 @@
-﻿namespace PrimeCafeManagement.Models
+﻿
+namespace PrimeCafeManagement.Models
 {
     public class Order
     {
@@ -10,6 +11,7 @@
         public DateTime OrderDate { get; set; }
         public virtual User User { get; set; }
         public int UserId { get; set; }
-
+        public virtual Menu Menu { get; set; }
+        public int MenuId { get; set; }
     }
 }
