@@ -1,0 +1,23 @@
+﻿@using PrimeCafeManagement.Models;
+@model MenuPrice;
+<div class="row">
+	<div class="col-4 offset-4">
+		<div class="card">
+			<div class="header bg-light py-3">
+				<h4 class="text-center">Menu Price Form</h4>
+			</div>
+			<div class="card-body">
+				<form action="/Manager/AddUpdateMenuPrice" method="post">
+					<input type="hidden" asp-for="Id" />
+					<div class="mb-3">
+						<label class="form-label">Name</label>
+						<input class="form-control" type="text" asp-for="Name" />
+					</div>
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

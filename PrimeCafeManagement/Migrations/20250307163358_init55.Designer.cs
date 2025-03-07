@@ -12,8 +12,8 @@ using PrimeCafeManagement.Models;
 namespace PrimeCafeManagement.Migrations
 {
     [DbContext(typeof(PrimeCafeContext))]
-    [Migration("20250228081521_init56")]
-    partial class init56
+    [Migration("20250307163358_init55")]
+    partial class init55
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,6 +191,10 @@ namespace PrimeCafeManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remember")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
