@@ -22,6 +22,11 @@
 						<label class="form-label">Password</label>
 						<input class="form-control" type="password" asp-for="Password" />
 					</div>
+					<div class="mb-3">
+						<input class="form-check-input" type="checkbox" asp-for="Remember"/>
+						<label class="form-check-label">Remember Me</label>
+
+					</div>
 					<div class="text-center d-flex justify-content-center gap-2">
 						<button class="btn btn-primary" type="submit">Login</button>
 						<a class="btn btn-success text-decoration-none" href="/Account/AddUpdateUser">Register</a>

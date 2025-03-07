@@ -78,7 +78,10 @@ namespace PrimeCafeManagement.Controllers
 
         public IActionResult CurrentOrders()
         {
-            List<Order> order = _context.Orders.Where(x => x.Status == "Pending").Include(x => x.User).ToList();
+            var accessToken = Request.Cookies["user-access-token"];
+            User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();
+
+            List<Order> order = _context.Orders.Where(x =>x.UserId==user.Id && x.Status == "Pending").Include(x => x.User).ToList();
 
             return View(order);
         }
