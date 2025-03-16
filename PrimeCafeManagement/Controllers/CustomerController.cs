@@ -31,7 +31,8 @@ namespace PrimeCafeManagement.Controllers
             return View(order);
         }
 
-        [HttpGet]public IActionResult AddUpdateOrder(int id = 0)
+        [HttpGet]
+        public IActionResult AddUpdateOrder(int id = 0)
         {
             var accessToken = Request.Cookies["user-access-token"];
             User user = _context.Users.Where(x => x.AccessToken == accessToken).FirstOrDefault();

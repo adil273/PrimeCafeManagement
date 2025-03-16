@@ -1,0 +1,36 @@
+﻿@using PrimeCafeManagement.Models;
+@model List<Order>;
+<div class="row">
+	<div class="card">
+		<div class="card-header bg-light py-3">
+			<h4 class="text-center"> Served Order History </h4>
+		</div>
+		<div class="card-body">
+			<table class="table table-bordered table-striped table-hover text-center">
+				<thead class="bg-secondary text-white text-center">
+					<tr>
+						<th class="py-3">Order Date</th>
+						<th class="py-3">Customer</th>
+						<th class="py-3">Order Title</th>
+						<th class="py-3">OrderPrice</th>
+						<th class="py-3">Order Number</th>
+						<th class="py-3">Order Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (Order order in Model)
+					{
+						<tr>
+							<td>@order.OrderDate.ToString("dd-MMM-yy")</td>
+							<td>@order.User.Name</td>
+							<td>@order.Title</td>
+							<td>@order.Price</td>
+							<td>@order.OrderNumber</td>
+							<td>Served</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

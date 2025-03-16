@@ -25,6 +25,18 @@ namespace PrimeCafeManagement.Controllers
 
             return View(order);
         }
+        public IActionResult ManagerOrderHistoryServed()
+        {
+            List<Order> order = _context.Orders.Where(x => x.Status == "Confirm").Include(x => x.User).ToList();
+
+            return View(order);
+        }
+        public IActionResult ManagerOrderHistoryCancel()
+        {
+            List<Order> order = _context.Orders.Where(x => x.Status == "Cancel").Include(x => x.User).ToList();
+
+            return View(order);
+        }
         [HttpGet]
         public IActionResult CompleteOrder(int id)
         {
@@ -77,7 +89,7 @@ namespace PrimeCafeManagement.Controllers
                     ViewBag.MenuTitles = _context.MenuTitles.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = $"{x.Name}" }).ToList();
                     ViewBag.MenuPrices = _context.MenuPrices.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = $"{x.Name}" }).ToList();
 
-                    ViewBag.Error = "Only JPG or PNG images allwoerd";
+                    ViewBag.Error = "Only JPG or PNG images allowed";
                     return View(menu);
                 }
                 else if (file.Length > maxSize)
@@ -85,7 +97,7 @@ namespace PrimeCafeManagement.Controllers
                     ViewBag.MenuTitles = _context.MenuTitles.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = $"{x.Name}" }).ToList();
                     ViewBag.MenuPrices = _context.MenuPrices.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = $"{x.Name}" }).ToList();
 
-                    ViewBag.Error = "Allowed Size is 1MB";
+                    ViewBag.Error = "Allowed Size is 4MB";
                     return View(menu);
                 }
                 else
