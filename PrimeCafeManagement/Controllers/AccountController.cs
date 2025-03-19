@@ -57,7 +57,7 @@ namespace PrimeCafeManagement.Controllers
 
                 else if (dbUser.Role.Name == "Customer")
                 {
-                    return Redirect("/Customer/Orders");
+                    return Redirect("/Customer/CurrentOrder");
                 }
 
             }
@@ -85,7 +85,7 @@ namespace PrimeCafeManagement.Controllers
         [HttpGet]
         public IActionResult AddUpdateUser(int id = 0)
         {
-            ViewBag.Roles = _context.Roles.Where(x => x.Name == "Customer").Select(x => new SelectListItem { Value = x.Id.ToString(), Text = $"{x.Name}" }).ToList();
+            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = $"{x.Name}" }).ToList();
             if (id == 0)
             {
                 return View();
@@ -129,6 +129,7 @@ namespace PrimeCafeManagement.Controllers
             }
             user.AccessToken = DateTime.UtcNow.Ticks.ToString();
             user.CreatedOn = DateTime.UtcNow.AddHours(5);
+           
 
             user.RoleId = _context.Roles.Where(x => x.Name == "Customer").Select(x => x.Id).FirstOrDefault();
             _context.Users.Update(user);

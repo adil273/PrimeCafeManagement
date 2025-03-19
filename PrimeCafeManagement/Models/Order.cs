@@ -10,6 +10,6 @@
         public DateTime OrderDate { get; set; }
         public virtual User User { get; set; }
         public int UserId { get; set; }
-
+        public string Image { get; set; }
     }
 }

@@ -16,6 +16,12 @@
 				<form action="/Account/AddUpdateUser" method="post" enctype="multipart/form-data">
 					<input type="hidden" asp-for="Id" />
 					<input type="hidden" asp-for="Image" />
+					@* <div class="mb-3"> *@
+					@* 	<label class="form-label">RoleId</label> *@
+					@* 	<select class="form-select form-label" asp-for="RoleId" asp-items="ViewBag.Roles"> *@
+					@* 		<option>--Select Role--</option> *@
+					@* 	</select> *@
+					@* </div> *@
 					<div class="mb-3">
 						<label class="form-label">Name</label>
 						<input class="form-control" type="text" asp-for="Name" />
@@ -35,13 +41,6 @@
 						<label class="form-label">Password</label>
 						<input class="form-control" type="password" asp-for="Password" />
 					</div>
-
-					@* <div class="mb-3"> *@
-					@* 	<label class="form-label">Phone</label> *@
-					@* 	<input class="form-control" type="tel" asp-for="Phone" /> *@
-					@* </div> *@
-
-
 					<div class="text-center">
 						<button class="btn btn-primary" type="submit">Submit</button>
 					</div>
