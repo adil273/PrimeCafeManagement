@@ -1,29 +1,43 @@
-﻿@using PrimeCafeManagement.Models; 
+﻿@using PrimeCafeManagement.Models;
 @model List<Order>;
-
-<div class="row d-flex my-2">
-	@foreach (var meal in Model)
-	{
-	<div class="col-md-3 my-2">
-		<form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="Id" value="@meal.Id"/>
-				<input type="hidden" name="Image" value="@meal.Image" />
-
-			<div class="card" style="width:100%; height:300px;">
-				<input type="hidden" name="Title" value="@meal.Title" />
-				<input type="hidden" name="Price" value="@meal.Price" />
-				<img src="~/image/@meal.Image" alt="@meal.Title" style="width:100%; height:180px;" />
-				<div class="card-body text-center">
-					<h5 class="card-title">@meal.Title</h5>
-					<h6 class="card-title">Price Rs.@meal.Price</h6>
-					<div class="text-center">
-						<button class="btn btn-primary" type="submit">Add Order</button>
-					</div>
-				</div>
-			</div>
-
-		</form>
+<div class="row">
+	<div class="card">
+		<div class="card-header bg-light py-3">
+			<h4> Place Order </h4>
+		</div>
+		<div class="card-body">
+			<table class="table table-bordered table-striped table-hover">
+				<thead class="bg-secondary text-white text-center">
+					<tr>
+						<th class="py-3">Menu Title</th>
+						<th class="py-3">Menu Price</th>
+						<th class="py-3">Menu Image</th>
+						<th class="py-3">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (Order meal in Model)
+					{
+						<tr>
+							
+							<td>@meal.Title</td>
+							<td>@meal.Price</td>
+							<td>
+								<img src="/image/@meal.Image" alt="Photo" height="70" width="70" />
+							</td>
+                            <td>
+                                <form action="/Customer/AddUpdateOrder" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="Id" value="@meal.Id" />
+                                    <input type="hidden" name="Image" value="@meal.Image" />
+                                    <input type="hidden" name="Title" value="@meal.Title" />
+                                    <input type="hidden" name="Price" value="@meal.Price" />
+                                    <button class="btn btn-primary" type="submit">Add Order</button>
+                                </form>
+                            </td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
 	</div>
-	}
 </div>
-
